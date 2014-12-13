@@ -5,24 +5,18 @@
 	"sockets": false,
 	"cacheBuster": false,
 	"db": {
-		"adapter": "mysql",
-		"mysql": {
-			"host": "localhost",
-			"user": "",
-			"password": "",
-			"database": ""
+		"adapter": "mongodb",
+		"mongodb" : {
+			"host": "mongodb://localhost:27017/sprout"
 		}
 	},
 	"env": {
 		"production": {
 			"port": 80,
 			"db": {
-				"adapter": "mysql",
-				"mysql": {
-					"host": "localhost",
-					"user": "",
-					"password": "",
-					"database": ""
+				"adapter": "mongodb",
+				"mongodb" : {
+					"host": "mongodb://localhost:27017/sprout"
 				}
 			}
 		},

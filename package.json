@@ -16,6 +16,8 @@
   "author": "ConnectAi",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "cs": "~1.0.0"
+    "cs": "~1.0.0",
+    "mongodb": "^1.4.23",
+    "lodash": "^2.4.1"
   }
 }
