@@ -1,0 +1,33 @@
+{
+	"name": "sprout",
+	"port": 3000,
+	"session": "memory",
+	"sockets": false,
+	"cacheBuster": false,
+	"db": {
+		"adapter": "mysql",
+		"mysql": {
+			"host": "localhost",
+			"user": "",
+			"password": "",
+			"database": ""
+		}
+	},
+	"env": {
+		"production": {
+			"port": 80,
+			"db": {
+				"adapter": "mysql",
+				"mysql": {
+					"host": "localhost",
+					"user": "",
+					"password": "",
+					"database": ""
+				}
+			}
+		},
+		"development": {
+			"debug": true
+		}
+	}
+}
