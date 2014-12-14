@@ -1,14 +1,29 @@
 section[data-page="login"]
+
 	position absolute
 	top 0px
 	bottom 0px
 	right 0px
 	left 0px
 	background linear-gradient(top, rgb(142,186,214), rgb(127,171,199))
+	
+	&:after
+		background url(/img/greenhills.png) no-repeat
+		background-size 100%
+		bottom 0
+		content ''
+		display block
+		height 50%
+		left 0
+		position absolute
+		width 100%
+		z-index 0
 
 	.center
 		margin-top 50px
+		position relative
 		text-align center
+		z-index 10
 
 		.logo
 			margin-bottom 70px
@@ -25,3 +40,74 @@ section[data-page="login"]
 				margin-right 40px
 				&:last-child
 					margin-right 0px
+	#clouds
+		left 0
+		padding 100px 0
+		position absolute
+		top 0
+		z-index 0
+		.cloud
+			width 200px
+			height 60px
+			background #fff
+			border-radius 200px
+			position relative
+			&:before, &:after
+				content ''
+				position absolute 
+				background #fff
+				width 100px
+				height 80px
+				position absolute
+				top -15px
+				left 10px
+				border-radius 100px
+				transform rotate(30deg)
+			&:after
+				width 120px
+				height 120px
+				top -55px
+				left auto
+				right 15px
+			&.x1 
+				animation moveclouds 15s linear infinite;
+			&.x2
+				left 200px
+				transform scale(0.6)
+				opacity 0.6
+				animation moveclouds 25s linear infinite
+			&.x3
+				left -250px
+				top -200px
+				transform scale(0.8)
+				opacity 0.8
+				animation moveclouds 20s linear infinite
+
+@keyframes moveclouds
+	0% 
+		margin-left 1000px
+	100%
+		margin-left -1000px
+					
+@media (max-width 900px)
+	section[data-page]
+		&:after
+			background-position bottom
+			
+@media (max-width 500px)
+	section[data-page]
+		&:after
+			background-size cover
+			bottom -35px
+		.center
+			.logo
+				margin-bottom 30px
+				img
+					width 200px
+			.loginText
+				font-size 18px
+				margin-bottom 30px
+			.social
+				.network
+					img
+						width 70px
