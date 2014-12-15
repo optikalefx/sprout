@@ -7,7 +7,7 @@
 	"db": {
 		"adapter": "mongodb",
 		"mongodb" : {
-			"host": "mongodb://localhost:27017/sprout"
+			"host": "mongodb://square-bracket.com:27017/sprout"
 		}
 	},
 	"env": {
@@ -16,7 +16,7 @@
 			"db": {
 				"adapter": "mongodb",
 				"mongodb" : {
-					"host": "mongodb://localhost:27017/sprout"
+					"host": "mongodb://square-bracket.com:27017/sprout"
 				}
 			}
 		},
