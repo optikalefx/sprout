@@ -75,10 +75,13 @@ var routes = {
 				};
 			});
 
+			/*
 			zones = [{
 				id: 107,
 				"zone": "2a"
 			}];
+			*/
+
 
 			for(var i = 0; i < zones.length; i++) {
 				var zone = zones[i];
@@ -87,7 +90,7 @@ var routes = {
 				var npage = yield request.get(zoneUrl, resume);
 
 				var months = [1,2,3,4,5,6,7,8,9,10,11,12];
-				months = [2,3];
+				//months = [2,3];
 
 				// each month
 				for(var j = 0; j< months.length; j++) {
@@ -112,21 +115,33 @@ var routes = {
 							zones: {}
 						};
 
-						console.log("zone", zone.zone, allPlants[plant].zones[zone.zone]);
-
 						if(!allPlants[plant].zones[zone.zone]) {
 							allPlants[plant].zones[zone.zone] = [];
 						}
 
-						console.log("zonea", allPlants[plant].zones[zone.zone]);
-
-
 						allPlants[plant].zones[zone.zone].push(month);
+
+						console.log("zone", plant, zone.zone, allPlants[plant].zones);
 
 					});
 
 				}
 			}
+
+			//res.send(JSON.stringify(allPlants));
+			_.forEach(allPlants, function(plant, name) {
+				console.log(name, JSON.stringify(plant.zones));
+				app.db.collection("plant").update({
+					name: name
+				}, {
+					$set : {
+						name: name,
+						zones: plant.zones
+					}
+				}, {upsert:true}, function(e, r) {
+					console.log(e,r, name);
+				});
+			});
 
 			res.json(allPlants);
 
@@ -137,7 +152,7 @@ var routes = {
 
 	},
 
-	/*
+
 	"/getImages"(req,res) {
 
 		var plants = "http://www.gardenate.com/plants/";
@@ -162,9 +177,11 @@ var routes = {
 				request({
 					url: google,
 					headers: {
-				        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+				        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 1'
 				   	}
 				}, function(err, resp, body) {
+
+					console.log(body);
 
 					// load google
 					$ = cheerio.load(body);
@@ -172,6 +189,7 @@ var routes = {
 					// get the main image
 					var big = $(".iuth").eq(0).parent().attr("href");
 
+					console.log("big", big);
 
 					request.get(big, function(e, resp, body) {
 
@@ -182,19 +200,20 @@ var routes = {
 
 							i++;
 
-
-							app.db.collection("plant").insert({
-								name: plant,
-								image: full,
-								zones: [],
-								description: ""
-							}, function() {
-
-							});
+							app.db.collection("plant").update({
+								name: plant
+							},{
+								$set: {
+									name: plant,
+									image: full
+								}
+							}, {upsert:true}, function() {});
 
 							images.push({plant:plant, image: full});
-							console.log(i, plants.length);
-							if(i == 69) {
+
+							console.log(i, plant, plants.length);
+
+							if(i == plants.length - 1) {
 								res.json(images);
 							}
 						}
@@ -204,7 +223,6 @@ var routes = {
 
 		});
 	}
-	*/
 
 
 };
