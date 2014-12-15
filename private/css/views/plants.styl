@@ -1,0 +1,116 @@
+section[data-page="plants"]
+
+	position absolute
+	top 0px
+	bottom 0px
+	right 0px
+	left 0px
+	background linear-gradient(top, rgb(118, 193, 215), rgb(127,171,199))
+
+	.pageContent
+		max-width 1000px
+		margin auto
+
+	&:after
+		background url(/img/greenhills.png) no-repeat
+		background-size 100%
+		bottom 0
+		content ''
+		display block
+		height 25%
+		left 0
+		position absolute
+		width 100%
+		z-index 0
+
+	&:before
+		background url(/img/greenhills.png) no-repeat
+		background-size 100%
+		bottom 0
+		content ''
+		display block
+		height 10%
+		left 0
+		position absolute
+		width 100%
+		z-index 0
+
+	.plantList
+		display flex
+		justify-content: space-between;
+		flex-flow: row wrap;
+		.plant
+			text-align center
+			transition all 250ms ease-out
+			transform translateX(800%)
+
+			&.in
+				transform translateX(0%)
+
+
+			.plantImage
+				background-repeat no-repeat
+				background-position 50%
+				border 8px solid white
+				border-radius 50%
+				width 180px
+				height 180px
+				background-size cover
+
+			.plantTitle
+				color white
+				font-size 22px
+				margin-top 10px
+
+	.center
+		margin-top 50px
+		position relative
+		z-index 10
+		display flex
+		justify-content: space-between;
+		flex-flow: row wrap;
+		margin-bottom 150px
+
+		.tabs
+			display flex
+			position relative
+			top 25px
+			.eat
+				margin-left 20px
+			.eat, .grow
+				text-align center
+
+		.location
+			display flex
+
+			.flag
+				width 51px
+				height 51px
+				background #ccc
+				border-radius 50px
+				margin-right 10px
+
+				.flagInner
+					background-repeat no-repeat
+					background-position 50%
+					border-radius 50%
+					width 100%
+					height 100%
+					background-size cover
+
+			.flag, .season
+				position relative
+				top 18px
+
+		.loginText
+			font-size 22px
+			font-weight 100
+			letter-spacing 1px
+			color white
+			margin-bottom 70px
+
+		.social
+			.network
+				margin-right 40px
+				&:last-child
+					margin-right 0px

@@ -4,3 +4,5 @@ app.log
 public/js/vendor/*
 
 /cookies.json
+
+/public/css/main.css

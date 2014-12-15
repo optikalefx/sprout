@@ -1,0 +1,42 @@
+{{#bind "scripts"}}
+	<script src="/js/views/plants.js"></script>
+{{/bind}}
+
+
+<section class="page" data-page="plants">
+	<div class="pageContent">
+		<div class="center">
+			<div class="tabs">
+				<div class="grow">
+					<a href=""><img src="/img/grow_select.png"/></a>
+					<div>PLANT</div>
+				</div>
+				<div class="eat">
+					<a href=""><img src="/img/eat_deselect.png"/></a>
+					<div>EAT</div>
+				</div>
+			</div>
+			<div class="logo">
+				<img src="/img/logo.png" alt="Sprout - What to Grow When"/>
+			</div>
+			<div class="location">
+				<div class="flag">
+					<div class="flagInner" style="background-image url()"></div>
+				</div>
+				<div class="season">
+					<img src="/img/winter.png"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="plantList">
+
+		</div>
+	</div>
+
+</section>
+
+
+<script id="plantsTemplate" type="template/handlebars">
+	{{{include "partials/plant" parse=false }}}
+</script>

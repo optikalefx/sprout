@@ -1,3 +1,10 @@
+canvas
+	position absolute
+	top 0px
+	left 0px
+	background transparent
+
+
 section[data-page="login"]
 
 	position absolute
@@ -5,8 +12,8 @@ section[data-page="login"]
 	bottom 0px
 	right 0px
 	left 0px
-	background linear-gradient(top, rgb(142,186,214), rgb(127,171,199))
-	
+	background linear-gradient(top, rgb(118, 193, 215), rgb(127,171,199))
+
 	&:after
 		background url(/img/greenhills.png) no-repeat
 		background-size 100%
@@ -40,6 +47,8 @@ section[data-page="login"]
 				margin-right 40px
 				&:last-child
 					margin-right 0px
+
+
 	#clouds
 		left 0
 		padding 100px 0
@@ -54,7 +63,7 @@ section[data-page="login"]
 			position relative
 			&:before, &:after
 				content ''
-				position absolute 
+				position absolute
 				background #fff
 				width 100px
 				height 80px
@@ -69,7 +78,7 @@ section[data-page="login"]
 				top -55px
 				left auto
 				right 15px
-			&.x1 
+			&.x1
 				animation moveclouds 15s linear infinite;
 			&.x2
 				left 200px
@@ -84,16 +93,16 @@ section[data-page="login"]
 				animation moveclouds 20s linear infinite
 
 @keyframes moveclouds
-	0% 
+	0%
 		margin-left 1000px
 	100%
 		margin-left -1000px
-					
+
 @media (max-width 900px)
 	section[data-page]
 		&:after
 			background-position bottom
-			
+
 @media (max-width 500px)
 	section[data-page]
 		&:after
