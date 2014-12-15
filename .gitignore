@@ -2,3 +2,5 @@ node_modules
 app.log
 *fuse_hidden*
 public/js/vendor/*
+
+/cookies.json
