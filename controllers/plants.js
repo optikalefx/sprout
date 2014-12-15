@@ -25,10 +25,9 @@ module.exports = {
 				return obj;
 			});
 
-			console.log(zones);
-
 			// get all plants for these climates
 			var plants = yield app.db.collection("plant").find({
+			    image: {$exists:true},
 			    $or : zones
 			}).toArray(resume);
 
