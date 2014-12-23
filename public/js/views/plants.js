@@ -1,4 +1,4 @@
-/* globals navigator, $, Handlebars */
+/* globals navigator, $, Handlebars, _ */
 
 // html5 location
 navigator.geolocation.getCurrentPosition(function(location) {
@@ -6,6 +6,21 @@ navigator.geolocation.getCurrentPosition(function(location) {
 	var lon = location.coords.longitude;
 
     // update season icon
+    var seasons = [
+        {season:"winter", months: [12,1,2]},
+        {season:"spring", months: [3,4,5]},
+        {season:"summer", months: [6,7,8]},
+        {season:"fall", months: [9,10,11]}
+    ];
+    var d = new Date();
+    var currentMonth = d.getMonth() + 1;
+    var season =  _.find(seasons, function(obj) {
+        return _.contains(obj.months, currentMonth);
+    }).season;
+
+    // swap out season image now
+    $(".season img").attr("src", "/img/" + season + ".png");
+
 
 	$.ajax({ url:'http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lon+'&sensor=true',
          success: function(data){
