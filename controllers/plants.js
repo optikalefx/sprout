@@ -1,7 +1,7 @@
-
+/* globals app */
 module.exports = {
 
-	"index"(req, res, next) {
+	"index"(req, res) {
 		res.view();
 	},
 
@@ -21,9 +21,11 @@ module.exports = {
 
 			var zones = climate.zones.map(function(zone) {
 				var obj = {};
-				obj["zones." + zone] = {$in: [month]};
+				obj["zones." + zone] = month;
 				return obj;
 			});
+
+			console.log(zones);
 
 			// get all plants for these climates
 			var plants = yield app.db.collection("plant").find({
