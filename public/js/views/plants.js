@@ -3,11 +3,82 @@
 
 	var app = {
 
-		init: function() {
+		plants: [],
+		showIndex: 0,
 
+		init: function() {
 			this.changeSeason();
 			this.setLocation();
+			this.attachEvents();
+		},
 
+		attachEvents: function() {
+			$(".arrow.right").on("click", function(e) {
+				e.preventDefault();
+				app.getPlantsRight();
+			});
+			$(".arrow.left").on("click", function(e) {
+				e.preventDefault();
+				app.getPlantsLeft();
+			});
+		},
+
+		getPlantsLeft: function() {
+			// add the moveLeft class to move all plants out
+			$(".plantList .plant").addClass("moveOutRight");
+
+			// wait for animation to end
+			setTimeout(function() {
+				// move the index to the next 4
+				app.showIndex -= 4;
+
+				// get the next 4 plants
+				var plants = app.plants.splice(app.showIndex,4);
+
+				// set all plants to start on the left
+				plants.map(function(plant) {
+					plant.startDisplay = "displayLeft";
+				});
+
+				// render those next 4
+				app.renderPlants(plants);
+
+				// show those new guys
+				setTimeout(function() {
+					// remove the right class to show them
+					$(".plantList .plant").removeClass("displayLeft");
+				},100);
+
+			}, 250 + 400);
+		},
+
+		getPlantsRight: function() {
+			// add the moveLeft class to move all plants out
+			$(".plantList .plant").addClass("moveOutLeft");
+
+			// wait for animation to end
+			setTimeout(function() {
+				// move the index to the next 4
+				app.showIndex += 4;
+
+				// get the next 4 plants
+				var plants = app.plants.splice(app.showIndex,4);
+
+				// set all plants to start on the left
+				plants.map(function(plant) {
+					plant.startDisplay = "displayRight";
+				});
+
+				// render those next 4
+				app.renderPlants(plants);
+
+				// show those new guys
+				setTimeout(function() {
+					// remove the right class to show them
+					$(".plantList .plant").removeClass("displayRight");
+				},100);
+
+			}, 250 + 400);
 		},
 
 		changeSeason: function() {
@@ -58,14 +129,30 @@
 			$.post("/plants/search",{state: stateCode}).then(function(plants) {
 
 				plants = _.shuffle(plants);
+				app.plants = plants; // store for later use
 				plants = plants.splice(0,4);
 
-				// get the plants template
-				var template = Handlebars.compile($("#plantsTemplate").html());
-				template = template({plants:plants});
-				$(".plantList").html(template);
+				// at this point were starting from the right
+				// add that prop to all plants
+				plants.map(function(plant) {
+					plant.startDisplay = "displayRight";
+				});
+
+				app.renderPlants(plants);
+
+				setTimeout(function() {
+					// remove the right class to show them
+					$(".plantList .plant").removeClass("displayRight");
+				},0);
 
 			});
+		},
+
+		renderPlants: function(plants) {
+			// get the plants template
+			var template = Handlebars.compile($("#plantsTemplate").html());
+			template = template({plants:plants});
+			$(".plantList").html(template);
 		}
 
 	};

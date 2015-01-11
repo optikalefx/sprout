@@ -54,11 +54,41 @@ section[data-page="plants"]
 		flex-flow: row wrap;
 		.plant
 			text-align center
-			//transition all 250ms ease-out
-			//transform translateX(800%)
+			transition all 250ms ease-out
+			transform translateX(0%)
+			opacity 1
+			&:nth-child(1)
+				transition-delay 100ms
+			&:nth-child(2)
+				transition-delay 200ms
+			&:nth-child(3)
+				transition-delay 300ms
+			&:nth-child(4)
+				transition-delay 400ms
 
-			//&.in
-			//	transform translateX(0%)
+			&.moveOutLeft
+				transform translateX(-400%)
+				opacity 0
+
+			&.moveOutRight
+				transform translateX(400%)
+				opacity 0
+				&:nth-child(1)
+					transition-delay 400ms
+				&:nth-child(2)
+					transition-delay 300ms
+				&:nth-child(3)
+					transition-delay 200ms
+				&:nth-child(4)
+					transition-delay 100ms
+
+			&.displayRight
+				transform translateX(400%)
+				opacity 0
+
+			&.displayLeft
+				transform translateX(-400%)
+				opacity 0
 
 
 			.plantImage

@@ -4,9 +4,61 @@ var request = require("request");
 var _ = require("lodash");
 var FileCookieStore = require('tough-cookie-filestore');
 var j = request.jar(new FileCookieStore('cookies.json'));
+var gm = require("gm");
+var exec = require('child_process').exec;
 request = request.defaults({ jar : j });
 
 module.exports = {
+
+	// converts all images in the database to a 400px version into the plants folder
+	// useful if you have remote images you want to convert
+	// you could modify line 21 to only get those with http://
+	"/convertImages"(req,res) {
+
+		app.run(function* (resume) {
+
+			// get all plants from the database
+			var plants = yield app.db.collection("plant").find().toArray(resume);
+
+			for(var i = 0; i<plants.length; i++) {
+				var plant = plants[i];
+				var img = plant.image;
+
+				var filename = plant.name.replace("/","-") + ".jpg";
+				var output = __dirname + '/../public/img/plants/' + filename;
+
+				var cmd = `gm convert "${img}" -resize 400x -quality 100 -background white -extent 0x0 +matte "${output}"`;
+				yield exec(cmd, resume);
+
+				// update the database with that
+				console.log(plant._id);
+				app.db.collection("plant").update({_id: plant._id}, {$set: {image: filename}}, function(e,r) {
+					console.log(e,r);
+				});
+			}
+
+			res.json(plants);
+		});
+	},
+
+	"/fixImagePaths"(req,res) {
+		app.run(function* (resume) {
+
+			var plants = yield app.db.collection("plant").find().toArray(resume);
+
+			for(var i = 0; i<plants.length; i++) {
+				var plant = plants[i];
+				var img = plant.image;
+				img = img.replace("(","");
+				img = img.replace(")","");
+				img = img.replace(" ","-");
+				app.db.collection("plant").update({_id: plant._id}, {$set: {image: img}}, function(e,r) {
+					console.log(e,r);
+				});
+			}
+
+		});
+	},
 
 	"/getMonthData"(req,res) {
 
