@@ -1,4 +1,4 @@
-/* globals navigator, $, Handlebars, _ */
+/* globals navigator, $, Handlebars, _, window */
 (function() {
 
 	var app = {
@@ -10,6 +10,7 @@
 			this.changeSeason();
 			this.setLocation();
 			this.attachEvents();
+			window.app = app;
 		},
 
 		attachEvents: function() {
@@ -33,7 +34,7 @@
 				app.showIndex -= 4;
 
 				// get the next 4 plants
-				var plants = app.plants.splice(app.showIndex,4);
+				var plants = app.plants.slice(app.showIndex,app.showIndex + 4);
 
 				// set all plants to start on the left
 				plants.map(function(plant) {
@@ -62,7 +63,9 @@
 				app.showIndex += 4;
 
 				// get the next 4 plants
-				var plants = app.plants.splice(app.showIndex,4);
+				var plants = app.plants.slice(app.showIndex,app.showIndex + 4);
+
+				console.log("plants", plants, app.showIndex);
 
 				// set all plants to start on the left
 				plants.map(function(plant) {
@@ -128,9 +131,11 @@
 			 // call to server with our Maryland data
 			$.post("/plants/search",{state: stateCode}).then(function(plants) {
 
+				console.log(plants);
+
 				plants = _.shuffle(plants);
 				app.plants = plants; // store for later use
-				plants = plants.splice(0,4);
+				plants = plants.slice(0,4);
 
 				// at this point were starting from the right
 				// add that prop to all plants
@@ -138,17 +143,29 @@
 					plant.startDisplay = "displayRight";
 				});
 
-				app.renderPlants(plants);
+				// hide the loader
+				$(".loaderBox").addClass("hidden");
+
+				setTimeout(function() {
+					app.renderPlants(plants);
+				},200);
 
 				setTimeout(function() {
 					// remove the right class to show them
 					$(".plantList .plant").removeClass("displayRight");
-				},0);
+				},400);
+
+				// 500ms later show the arrows
+				setTimeout(function() {
+					// remove the right class to show them
+					$(".arrows").removeClass("hidden");
+				},1000);
 
 			});
 		},
 
 		renderPlants: function(plants) {
+			console.log(plants);
 			// get the plants template
 			var template = Handlebars.compile($("#plantsTemplate").html());
 			template = template({plants:plants});

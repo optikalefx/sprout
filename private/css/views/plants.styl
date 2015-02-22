@@ -42,6 +42,10 @@ section[data-page="plants"]
 		margin-top 25px
 		display flex
 		justify-content: center;
+		opacity 1
+		transition opacity 250ms ease-out
+		&.hidden
+			opacity 0
 		a
 			text-align center
 			margin 10px
@@ -50,13 +54,14 @@ section[data-page="plants"]
 
 	.plantList
 		display flex
-		justify-content: space-between;
+		justify-content: center;
 		flex-flow: row wrap;
 		.plant
 			text-align center
 			transition all 250ms ease-out
 			transform translateX(0%)
 			opacity 1
+			margin 0px 20px
 			&:nth-child(1)
 				transition-delay 100ms
 			&:nth-child(2)
@@ -157,3 +162,64 @@ section[data-page="plants"]
 				margin-right 40px
 				&:last-child
 					margin-right 0px
+
+
+	.loaderBox
+
+		text-align center
+		color white
+
+		&.hidden
+			opacity 0
+
+		.loader6
+			position relative
+			width 12px
+			height 12px
+
+			top 46%
+			top -webkit-calc(50% - 6px)
+			top calc(50% - 6px)
+			left 46%
+			left -webkit-calc(50% - 6px)
+			left calc(50% - 6px)
+
+			border-radius 12px
+			background-color #fff
+			transform-origin 50% 50%
+			animation loader6 1s ease-in-out infinite
+
+			margin-left 55px
+			transition opacity 250ms ease-out
+			opacity 1
+
+
+		.loader6:before
+			content ""
+			position absolute
+			background-color rgba(255, 255, 255, .5)
+			top 0px
+			left -25px
+			height 12px
+			width 12px
+			border-radius 12px
+
+
+		.loader6:after
+			content ""
+			position absolute
+			background-color rgba(255, 255 ,255 ,.5)
+			top 0px
+			left 25px
+			height 12px
+			width 12px
+			border-radius 12px
+
+@keyframes loader6
+	0%
+		transform rotate(0deg)
+	50%
+		transform rotate(180deg)
+	100%
+		transform rotate(180deg)
+
